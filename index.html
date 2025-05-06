@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>MS SHOP</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="font-weight: 500; margin-left: 10px;">ShopEasy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 90%; justify-content: space-evenly ;">
+
+
+        <div style="width: 50%;">
+
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 80%; outline: none;">
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+          </form>
+        </div>
+
+        <div>
+
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+        
+        
+        <ul class="mt-2" style="list-style: none;">
+          <li class="nav-item">
+            <a class="nav-link" id="cart" href="#">
+              <img src="/images/cart.svg" alt="" width="20">
+              <span class="order">0</span>
+            </a>
+          </li> 
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section  -->
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col">
+        <marquee><b>50%</b> Sale on all stock.</marquee>
+        <img src="./images/hero.webp" alt="" class="sale my-2">
+        <marquee direction="right"><b>50%</b> Sale on all stock.</marquee>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col">
+        <h1 style=" text-align: center;">
+          CATEGORIES
+        </h1>
+      </div>
+      <div class="row mt-5">
+        <div class="col-4" style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+          <img src="./images/cat1.webp" alt="" style="width: 151px;height: 151px;border-radius: 50%;">
+          <a href="#men" class="cats">MEN</a>
+        </div>
+        <div class="col-4" style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+          <img src="./images/cat2.webp" alt="" style="width: 151px;height: 151px;border-radius: 50%;">
+          <a href="#women" class="cats">WOMEN</a>
+        </div>
+        <div class="col-4" style="display: flex;justify-content: center;align-items: center;flex-direction:column;">
+          <img src="./images/cat3.webp" alt="" style="width: 151px;height: 151px;border-radius: 50%;">
+          <a href="#kids" class="cats">KIDS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- mens categories -->
+
+  <div class="container">
+    <div class="row mt-5" id="men">
+      <div class="col">
+        <h1 style=" text-align: center;">
+          MEN
+        </h1>
+      </div>
+    </div>
+
+    <div class="row cardbox mt-5 " style="display: flex; justify-content:center;align-items: center;   overflow-x: hidden;">
+    </div>
+  </div>
+
+  <!-- women section -->
+  <div class="container">
+    <div class="row mt-5" id="women">
+      <div class="col">
+        <h1 style=" text-align: center;">
+          WOMEN
+        </h1>
+      </div>
+    </div>
+    <div class="row wbox mt-5 " style="display: flex; justify-content: center;align-items: center;overflow-x: hidden; gap: 10px;">
+    </div>
+  </div>
+
+  <!-- kids section -->
+  <div class="container">
+    <div class="row mt-5" id="kids">
+      <div class="col">
+        <h1 style=" text-align: center;">
+          KIDS
+        </h1>
+      </div>
+    </div>
+    <div class="row kbox mt-5 " style="display: flex; justify-content: center;align-items: center;overflow-x: hidden;">
+    </div>
+  </div>
+
+  <div class="cartcont">
+    <h1 class="mb-3">Your items!</h1>
+    <div class="itemcont">
+      <div class="cart-items">Your card is empty.</div>
+    </div>
+    <p class="total-value">Total Payment: $0.00</p>
+    <button class="btn btn-small" id="cross">X</button>
+  </div>
+
+
+  <script src="js/bootstrap.js"></script>
+  <script src="./js/shop.js"></script>
+</body>
+
+</html>
