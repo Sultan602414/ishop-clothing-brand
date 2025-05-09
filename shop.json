@@ -1,117 +1,114 @@
 [
     {
     "id":1,
-    "name":"alto",
+    "name":"Classic Fit Oxford Shirt",
     "category":"men",
-    "price":"50$",
+    "price":"89.99$",
     "img":"./images/m1.webp"
 },
     {
     "id":2,
-    "name":"alto",
+    "name":"Slim Fit Chino Pants",
     "category":"men",
-    "price":"50$",
+    "price":"79.99$",
     "img":"./images/m2.webp"
 },
     {
     "id":3,
-    "name":"alto",
+    "name":"Premium Denim Jacket",
     "category":"men",
-    "price":"50$",
+    "price":"129.99$",
     "img":"./images/m3.webp"
 },
     {
     "id":4,
-    "name":"alto",
+    "name":"Casual Linen Shirt",
     "category":"men",
-    "price":"50$",
+    "price":"69.99$",
     "img":"./images/m4.webp"
 },
     {
     "id":5,
-    "name":"alto",
+    "name":"Wool Blend Sweater",
     "category":"men",
-    "price":"50$",
+    "price":"99.99$",
     "img":"./images/m5.webp"
 },
     {
     "id":6,
-    "name":"alto",
+    "name":"Tailored Fit Blazer",
     "category":"men",
-    "price":"50$",
+    "price":"149.99$",
     "img":"./images/m6.webp"
 },
     {
     "id":7,
-    "name":"alto",
+    "name":"Premium Cotton T-Shirt",
     "category":"men",
-    "price":"50$",
+    "price":"39.99$",
     "img":"./images/m7.webp"
 },
     {
     "id":8,
-    "name":"plto",
+    "name":"Designer Leather Belt",
     "category":"men",
-    "price":"50$",
+    "price":"59.99$",
     "img":"./images/m8.jpg"
-}
-
-,{
+},
+    {
     "id":9,
-    "name":"civic",
+    "name":"Floral Print Maxi Dress",
     "category":"women",
-    "price":"50$",
+    "price":"119.99$",
     "img":"./images/w1.webp"
 },
-   
     {
-        "id":10,
-        "name":"civic",
-        "category":"women",
-        "price":"50$",
-        "img":"./images/w2.webp"
+    "id":10,
+    "name":"Silk Blouse",
+    "category":"women",
+    "price":"89.99$",
+    "img":"./images/w2.webp"
 },
     {
-        "id":11,
-        "name":"civic",
-        "category":"women",
-        "price":"50$",
-        "img":"./images/w3.webp"
+    "id":11,
+    "name":"High-Waisted Jeans",
+    "category":"women",
+    "price":"99.99$",
+    "img":"./images/w3.webp"
 },
     {
-        "id":12,
-        "name":"civic",
-        "category":"women",
-        "price":"50$",
-        "img":"./images/w4.webp"
+    "id":12,
+    "name":"Cashmere Cardigan",
+    "category":"women",
+    "price":"139.99$",
+    "img":"./images/w4.webp"
 },
     {
     "id":13,
-    "name":"mehran",
+    "name":"Kids Graphic T-Shirt",
     "category":"kids",
-    "price":"50$",
+    "price":"24.99$",
     "img":"./images/k1.webp"
 },
     {
-        "id":14,
-        "name":"mehran",
-        "category":"kids",
-        "price":"50$",
-        "img":"./images/k2.webp"
+    "id":14,
+    "name":"Kids Denim Overalls",
+    "category":"kids",
+    "price":"39.99$",
+    "img":"./images/k2.webp"
 },
     {
-        "id":15,
-        "name":"mehran",
-        "category":"kids",
-        "price":"50$",
-        "img":"./images/k3.webp"
-},
-{
-    "id":16,
-    "name":"mehran",
+    "id":15,
+    "name":"Kids Hooded Sweatshirt",
     "category":"kids",
-    "price":"50$",
+    "price":"34.99$",
+    "img":"./images/k3.webp"
+},
+    {
+    "id":16,
+    "name":"Kids Casual Sneakers",
+    "category":"kids",
+    "price":"44.99$",
     "img":"./images/k4.webp"
 }
-
 ]

@@ -1,141 +1,133 @@
-let mycard = document.querySelector(".cardbox");
-let wcard = document.querySelector(".wbox");
-let kcard = document.querySelector(".kbox");
-let totalPrice = 0; // Initialize total price
-let order = 0; // Initialize order count
-
-let crd = "";
-let crd2 = "";
-let crd3 = "";
-let url = "../shop.json";
-
-// Cart items array
+let totalPrice = 0;
+let order = 0;
 let cartItems = [];
 
-// Function to render items in cart and update the total value
-const renderCart = () => {
-    let cartContainer = document.querySelector(".cart-items");
-    cartContainer.innerHTML = "";  // Clear existing content
+// Render products in their respective sections
+async function displayProducts() {
+    try {
+        const response = await fetch('./shop.json');
+        const products = await response.json();
 
-    cartItems.forEach((item, index) => {
-        cartContainer.innerHTML += `
-        <div class="cart-item">
-        <img src="${item.img}" alt="${item.name}">
-        <h4>${item.name}</h4>
-        <p class='mt-2'>Price: ${item.price}</p>
-        <img src="../images/trash.svg" alt="" class="btn-remove delete" data-index="${index}">
-        </div>
+        // Filter by category
+        const menProducts = products.filter(product => product.category === 'men');
+        const womenProducts = products.filter(product => product.category === 'women');
+        const kidsProducts = products.filter(product => product.category === 'kids');
+
+        renderCategory(menProducts, '.cardbox');
+        renderCategory(womenProducts, '.wbox');
+        renderCategory(kidsProducts, '.kbox');
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
+}
+
+function renderCategory(products, containerSelector) {
+    const container = document.querySelector(containerSelector);
+    container.innerHTML = '';
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'ccard position-relative';
+        card.innerHTML = `
+            <img src="${product.img}" alt="${product.name}">
+            <div class="product-info">
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-price">${product.price}</p>
+            </div>
+            <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
         `;
+        container.appendChild(card);
     });
-
-    // Update the total value display
-    document.querySelector('.total-value').textContent = `Total Payment: $${totalPrice.toFixed(2)}`;
-
-    // Add event listeners to "Remove" buttons
-    document.querySelectorAll(".btn-remove").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            let index = e.target.dataset.index;
-            removeCartItem(index);  // Call remove function
+    // Attach event listeners for add to cart
+    container.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const id = parseInt(e.target.getAttribute('data-id'));
+            addToCartById(id);
         });
     });
-};
+}
 
-// Function to add item to cart and update total value and order count
-const addToCart = (item) => {
-    cartItems.push(item);
-    totalPrice += parseFloat(item.price);  // Convert price to a number
-    order += 1; // Increase order count
-    updateOrderCount();  // Update order value display
-    renderCart();  // Re-render the cart items
-};
+// Helper to get product by id
+async function getProductById(id) {
+    const response = await fetch('./shop.json');
+    const products = await response.json();
+    return products.find(product => product.id === id);
+}
 
-// Function to remove item from cart and update total value and order count
-const removeCartItem = (index) => {
-    totalPrice -= parseFloat(cartItems[index].price);  // Convert price to a number
-    cartItems.splice(index, 1);
-    order -= 1; // Decrease order count
-    updateOrderCount();  // Update order value display
-    renderCart();  // Re-render the cart items
-};
+async function addToCartById(id) {
+    const product = await getProductById(id);
+    if (!product) return;
+    const existing = cartItems.find(item => item.id === id);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cartItems.push({ ...product, quantity: 1 });
+    }
+    totalPrice += parseFloat(product.price.replace('$', ''));
+    order += 1;
+    renderCart();
+}
 
-// Function to update order count in DOM
-const updateOrderCount = () => {
+function renderCart() {
+    const cartContainer = document.querySelector('.cart-items');
+    if (!cartContainer) return;
+    cartContainer.innerHTML = '';
+    if (cartItems.length === 0) {
+        cartContainer.innerHTML = '<p class="text-center">Your cart is empty.</p>';
+        document.querySelector('.total-value').textContent = 'Total: $0.00';
+        document.querySelector('.order').textContent = '0';
+        return;
+    }
+    cartItems.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <div class="cart-item-info">
+                <h4 class="cart-item-name">${item.name}</h4>
+                <p class="cart-item-price">${item.price} x ${item.quantity}</p>
+            </div>
+            <button class="btn btn-sm btn-outline-danger delete" data-idx="${idx}"><i class="fas fa-trash"></i></button>
+        `;
+        cartContainer.appendChild(div);
+    });
+    // Remove buttons
+    cartContainer.querySelectorAll('.delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const idx = parseInt(e.target.closest('button').getAttribute('data-idx'));
+            removeCartItem(idx);
+        });
+    });
+    document.querySelector('.total-value').textContent = `Total: $${totalPrice.toFixed(2)}`;
     document.querySelector('.order').textContent = `${order}`;
-};
+}
 
-const myfunc = async () => {
-    let fetch1 = await fetch(url);
-    let varj = await fetch1.json();
-    console.log(varj);
+function removeCartItem(idx) {
+    const item = cartItems[idx];
+    totalPrice -= parseFloat(item.price.replace('$', '')) * item.quantity;
+    order -= item.quantity;
+    cartItems.splice(idx, 1);
+    renderCart();
+}
 
-    let women = varj.filter((name) => name.category == "women");
-    let kid = varj.filter((name) => name.category == "kids");
-    let men = varj.filter((name) => name.category == "men");
+// Cart visibility
+const cartButton = document.getElementById('cart');
+const cartContainer = document.querySelector('.cartcont');
+const closeButton = document.getElementById('cross');
 
-    men.forEach(i => {
-        crd += `<div class="col-6 col-sm-4 col-md-3 col-lg-2  mb-3">
-        <div class="ccard">
-        <img src="${i.img}" alt="">
-        <h4>${i.name}</h4>
-        <p>Price: $${i.price}</p>
-        <button class="btn-outline-dark btn-sm btn add-to-cart" data-item='${JSON.stringify(i)}'>ADD TO CART</button>
-        </div>
-        </div>
-        `;
-    });
-
-    women.forEach(i => {
-        crd2 += `<div class="col-6 col-sm-4 col-md-3 col-lg-2  mb-3">
-        <div class="ccard">
-        <img src="${i.img}" alt="">
-        <h4>${i.name}</h4>
-        <p>Price: $${i.price}</p>
-        <button class="btn-outline-dark btn-sm btn add-to-cart" data-item='${JSON.stringify(i)}'>ADD TO CART</button>
-        </div>
-        </div>
-        `;
-    });
-
-    kid.forEach(i => {
-        crd3 += `<div class="col-6 col-sm-4 col-md-3 col-lg-2  mb-3">
-        <div class="ccard">
-        <img src="${i.img}" alt="">
-        <h4>${i.name}</h4>
-        <p>Price: $${i.price}</p>
-        <button class="btn-outline-dark btn-sm btn add-to-cart" data-item='${JSON.stringify(i)}'>ADD TO CART</button>
-        </div>
-        </div>
-        `;
-    });
-
-    // Update the HTML
-    mycard.innerHTML = crd;
-    wcard.innerHTML = crd2;
-    kcard.innerHTML = crd3;
-
-    // Add event listeners to the "Add to Cart" buttons
-    document.querySelectorAll(".add-to-cart").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            let item = JSON.parse(e.target.dataset.item);
-            addToCart(item);  // Add item to cart
-        });
-    });
-};
-
-myfunc();
-
-// Cart functionality
-let crtcros = document.querySelector("#cross");
-let cartcont = document.querySelector(".cartcont");
-let cart = document.querySelector("#cart");
-
-crtcros.addEventListener("click", () => {
-    cartcont.style.display = "none";
+cartButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    cartContainer.classList.add('active');
 });
-cart.addEventListener("click", () => {
-    cartcont.style.display = "block";
+closeButton.addEventListener('click', () => {
+    cartContainer.classList.remove('active');
+});
+document.addEventListener('click', (e) => {
+    if (!cartContainer.contains(e.target) && !cartButton.contains(e.target)) {
+        cartContainer.classList.remove('active');
+    }
 });
 
-// Initial display
-document.querySelector('.total-value').textContent = `Total Payment: $${totalPrice.toFixed(2)}`;
-document.querySelector('.order').textContent = `${order}`;
+// Initial cart state
+renderCart();
+// Show products
+window.addEventListener('DOMContentLoaded', displayProducts);
